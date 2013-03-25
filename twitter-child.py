@@ -70,15 +70,17 @@ except Exception, err:
     x.exception(err)
     sys.exit(1)
 
+seen_ids = []
+
 
 def ask_bot():
-        old_id = 0
         while True:
+            global seen_ids
             x.info('Getting new mentions')
-            for tweet in api.mentions_timeline(since_id=old_id):
-                if tweet.id > old_id:
-                    print "@%s: %s" % (tweet.author.screen_name, tweet.text)
-                    old_id = tweet.id
+            for tweet in api.mentions_timeline():
+                if tweet.id not in seen_ids:
+                    print "@%s: %s ID:%s" % (tweet.author.screen_name, tweet.text, tweet.id)
+                    seen_ids.append(tweet.id)
                 else:
                     pass
             time.sleep(20)
