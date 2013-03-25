@@ -62,6 +62,7 @@ try:
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     x.debug('Setting access token...')
     auth.set_access_token(access_token, access_token_secret)
+    api = tweepy.API(auth)
     x.info('Logged into %s', api.me().name)
 except Exception, err:
     x.warning('Login failed!')
@@ -69,7 +70,6 @@ except Exception, err:
     x.exception(err)
     sys.exit(1)
 
-api = tweepy.API(auth)
 x.info('Attempting status update')
 api.update_status('Updating using OAuth authentication via Tweepy!')
 
