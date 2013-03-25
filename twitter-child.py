@@ -9,10 +9,10 @@ digitalgangster.com
 '''
 
 
-import requests
 import tweepy
 import logging
 import sys
+import time
 
 
 # Make a global logging object.
@@ -70,10 +70,21 @@ except Exception, err:
     x.exception(err)
     sys.exit(1)
 
-x.info('Attempting status update')
-api.update_status('Updating using OAuth authentication via Tweepy!')
 
+def ask_bot():
+        old_id = 0
+        x.info('Getting new mentions')
+        for tweet in api.mentions():
+            if tweet.id > old_id:
+                print "@%s: %s" % (tweet.author.screen_name, tweet.text)
+                old_id = tweet.id + 1
+            else:
+                x.info('No new mentions found')
+                pass
 
+while True:
+    ask_bot()
+    time.wait(60)
 
 
 
