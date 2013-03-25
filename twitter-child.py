@@ -73,18 +73,19 @@ except Exception, err:
 
 def ask_bot():
         old_id = 0
-        x.info('Getting new mentions')
-        for tweet in api.mentions_timeline():
-            if tweet.id > old_id:
-                print "@%s: %s" % (tweet.author.screen_name, tweet.text)
-                old_id = tweet.id + 1
-            else:
-                x.info('No new mentions found')
-                pass
+        while True:
+            x.info('Getting new mentions')
+            for tweet in api.mentions_timeline():
+                if tweet.id > old_id:
+                    print "@%s: %s" % (tweet.author.screen_name, tweet.text)
+                    old_id = tweet.id + 1
+                else:
+                    x.info('No new mentions found')
+                    pass
+            time.sleep(20)
 
-while True:
-    ask_bot()
-    time.sleep(60)
+
+ask_bot()
 
 
 
