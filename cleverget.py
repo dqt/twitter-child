@@ -2,11 +2,14 @@
 This class takes a string sends it to cleverbot and returns the response
 '''
 
-import requests
+from cleverbot import Cleverbot
 
-class cleverget(object):
+
+class Cleverget(object):
     def __init__(self, tweet):
         self.tweet = tweet
 
     def response(self):
-
+        cb = Cleverbot()
+        resp = cb.ask(self.tweet)
+        return resp

@@ -13,7 +13,7 @@ import tweepy
 import logging
 import sys
 import time
-
+from cleverget import Cleverget
 
 # Make a global logging object.
 x = logging.getLogger("log")
@@ -80,6 +80,8 @@ def ask_bot():
             for tweet in api.mentions_timeline():
                 if tweet.id not in seen_ids:
                     print "@%s: %s ID:%s" % (tweet.author.screen_name, tweet.text, tweet.id)
+                    cg = Cleverget(tweet.text)
+                    print cg.response()
                     seen_ids.append(tweet.id)
                 else:
                     pass
