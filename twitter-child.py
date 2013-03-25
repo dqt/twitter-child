@@ -75,19 +75,21 @@ def ask_bot():
         old_id = 0
         while True:
             x.info('Getting new mentions')
-            for tweet in api.mentions_timeline():
+            for tweet in api.mentions_timeline(since_id=old_id):
                 if tweet.id > old_id:
                     print "@%s: %s" % (tweet.author.screen_name, tweet.text)
-                    old_id = tweet.id + 1
+                    old_id = tweet.id
                 else:
-                    x.info('No new mentions found')
                     pass
             time.sleep(20)
 
 
-ask_bot()
+def main():
+    ask_bot()
 
 
+if __name__ == '__main__':
+    main()
 
 
 
