@@ -41,13 +41,13 @@ x.addHandler(h2)
 
 # The consumer keys can be found on your application's Details
 # page located at https://dev.twitter.com/apps (under "OAuth settings")
-consumer_key="bKKGk5LL7zwfaQrO8Oew"
+consumer_key="Gg1qDOHdtyuOr90V1I5iQ"
 consumer_secret=""
 
 # The access tokens can be found on your applications's Details
 # page located at https://dev.twitter.com/apps (located
 # under "Your access token")
-access_token="928433282-5PK07buv76ah499iW2NfabrO4l5K1cpDOLtRRm6s"
+access_token="928433282-5a2iXT944KrgBaRuv60Utz02BLmLIGegZgrMTzM8"
 access_token_secret=""
 
 
