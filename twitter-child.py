@@ -33,19 +33,19 @@ f2 = logging.Formatter("%(levelname)s: %(message)s")
 h2.setFormatter(f2)
 x.addHandler(h2)
 
-username = 'twitterchild'
+username = 'decrypts'
 password = ''
 
-x.info('Using twitter username %s: '), username
+x.info('Using twitter username %s: ', username)
 password = raw_input('Please enter password: ')
-x.debug('Logging into twitter using %s:%s'), username, password
+x.debug('Logging into twitter using %s:%s', username, password)
 
 try:
     auth = tweepy.auth.BasicAuthHandler(username, password)
-    x.info('Login successful using %s:%s'), username, password
+    x.info('Login successful using %s:%s', username, password)
 except Exception, err:
     x.warning('Login failed!')
-    x.debug('Login failed using %s:%s'), username, password
+    x.debug('Login failed using %s:%s', username, password)
     x.warning('Program will exit!')
     x.exception(err)
     sys.exit(1)
