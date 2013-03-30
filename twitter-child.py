@@ -14,6 +14,7 @@ import logging
 import sys
 import time
 from cleverget import Cleverget
+import re
 
 # Make a global logging object.
 x = logging.getLogger("log")
@@ -70,7 +71,8 @@ except Exception, err:
     x.exception(err)
     sys.exit(1)
 
-seen_ids = []
+#TODO Use database rather than text file
+seen_ids = [line.strip() for line in open('seen_ids.txt')]
 
 
 def ask_bot():
@@ -79,13 +81,22 @@ def ask_bot():
             x.info('Getting new mentions')
             for tweet in api.mentions_timeline():
                 if tweet.id not in seen_ids:
-                    print "@%s: %s ID:%s" % (tweet.author.screen_name, tweet.text, tweet.id)
-                    cg = Cleverget(tweet.text)
-                    print cg.response()
+                    x.info('Found new mention!')
+                    x.info('Attempting to get reply from Cleverbot')
+                    q = re.sub("@decrypts ","",tweet.text,count=1)
+                    x.info('Sending: %s',q)
+                    cg = Cleverget(q)
+                    x.info('Replying to status')
+                    response = '@'+tweet.user.screen_name+' '+cg.response()
+                    a = re.sub("Cleverbot","Decrypts",response,count=1)
+                    api.update_status(a, tweet.id)
+                    x.info('Reply successful!')
                     seen_ids.append(tweet.id)
+                    doc = open('seen_ids.txt', 'a')
+                    doc.write(str(tweet.id)+"\n")
                 else:
                     pass
-            time.sleep(20)
+            time.sleep(70)
 
 
 def main():
@@ -94,7 +105,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-
 
 
 
